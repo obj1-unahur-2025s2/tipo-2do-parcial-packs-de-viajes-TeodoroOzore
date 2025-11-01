@@ -1,1 +1,22 @@
 // completar
+import packs.*
+
+describe "etapa 1" {
+    const pepe = new Coordinadores (
+        viajesRealizados = 19, 
+        estaMotivado = false, 
+        añosDeExperiencia = 0, 
+        rol = acompaniante
+    )
+
+    const packNacional = new Nacionales(
+        duracion = 14, 
+        precioBase = 100000, 
+        coordinador = pepe, 
+        provinciaDestino = "Cordoba"
+    )
+
+  test "Un pack nacional sin beneficios vigentes devuelve el mismo precio base." {
+    assert.equals(100000, packNacional.valorFinal())
+  }
+}
