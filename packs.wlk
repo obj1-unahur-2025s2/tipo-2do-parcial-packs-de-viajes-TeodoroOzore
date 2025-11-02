@@ -23,7 +23,7 @@ class Internacionales inherits Packs {
 class Coordinadores {
   var viajesRealizados
   var estaMotivado
-  var añosDeExperiencia
+  var aniosDeExperiencia
   var rol
   const rolesValidos = #{guia, asistenteLogistico, acompaniante}
 
@@ -36,17 +36,22 @@ class Coordinadores {
         self.error("Rol invalido")
     }
   }
+  method aniosDeExperiencia() = aniosDeExperiencia 
+  method estaMotivado() = estaMotivado
+  method esAltamenteCalificado() = (viajesRealizados > 20) and rol.condicionAdicional(self)
 }
+
+
  object guia {
-   
+   method condicionAdicional(unCoordinador) = unCoordinador.estaMotivado()
  }
 
  object asistenteLogistico {
-   
+   method condicionAdicional(unCoordinador) = unCoordinador.aniosDeExperiencia() >= 3
  }
 
  object acompaniante {
-   
+   method condicionAdicional(unCoordinador) = true
  }
 
 class BeneficiosEspeciales {
@@ -56,16 +61,4 @@ class BeneficiosEspeciales {
 
   method costo() = costo
   method estaVigente() = estaVigente
-}
-
-object trasladosPrivados {
-  
-}
-
-object salasVIP {
-  
-}
-
-object segurosAdicionales {
-  
 }

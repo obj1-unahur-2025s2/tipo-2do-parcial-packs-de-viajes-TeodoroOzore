@@ -5,7 +5,7 @@ describe "etapa 1" {
     const pepe = new Coordinadores (
         viajesRealizados = 19, 
         estaMotivado = false, 
-        añosDeExperiencia = 0, 
+        aniosDeExperiencia = 0, 
         rol = acompaniante
     )
 
@@ -16,7 +16,44 @@ describe "etapa 1" {
         provinciaDestino = "Cordoba"
     )
 
+    const seguroDeVida = new BeneficiosEspeciales(
+        tipo = "Seguro de vida", 
+        costo = 35000, 
+        estaVigente = true
+    )
+
+    const trasladoPrincipal = new BeneficiosEspeciales(
+        tipo = "Traslado privado", 
+        costo = 20000, 
+        estaVigente = true
+    )
+
+    const packNacionalConBeneficios = new Nacionales(
+        duracion = 14, 
+        precioBase = 100000, 
+        coordinador = pepe, 
+        provinciaDestino = "Bariloche",
+        beneficios = #{seguroDeVida, trasladoPrincipal}
+    )
+
+    const packInternacional = new Internacionales(
+        duracion = 16, 
+        precioBase = 100000, 
+        coordinador = pepe,
+        paisDestino = "Brasil",
+        cantidadDeEscalas = 0,
+        esDeInteres = true
+    )
+
   test "Un pack nacional sin beneficios vigentes devuelve el mismo precio base." {
     assert.equals(100000, packNacional.valorFinal())
+  }
+
+  test "Un pack nacional con 2 beneficios vigentes suma correctamente sus costos al precio base." {
+    assert.equals(155000, packNacionalConBeneficios.valorFinal())
+  }
+
+  test "Un pack internacional sin beneficios vigentes calcula correctamente el total con el 20% de recargo." {
+    assert.equals(120000, packInternacional.valorFinal())
   }
 }
