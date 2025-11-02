@@ -57,3 +57,113 @@ describe "etapa 1" {
     assert.equals(120000, packInternacional.valorFinal())
   }
 }
+
+describe "etapa 2" {
+    const pepe = new Coordinadores(
+        viajesRealizados = 21,
+        estaMotivado = true,
+        aniosDeExperiencia = 2,
+        rol = guia
+    )
+    
+    const mario = new Coordinadores(
+        viajesRealizados = 32,
+        estaMotivado = false,
+        aniosDeExperiencia = 2,
+        rol = asistenteLogistico
+    )
+
+    const pepita = new Coordinadores(
+        viajesRealizados = 55,
+        estaMotivado = true,
+        aniosDeExperiencia = 25,
+        rol = acompaniante
+    )
+  test "Un guía motivado con 21 viajes realizados es considerado altamente calificado" {
+    assert.that(pepe.esAltamenteCalificado())
+  }
+
+  test "Un asistente logístico con menos de 3 años de experiencia no es calificado, aunque tenga muchos viajes." {
+    assert.notThat(mario.esAltamenteCalificado())
+  }
+
+  test "Un acompañante con cualquier cantidad de viajes es siempre calificado si supera los 20." {
+    assert.that(pepita.esAltamenteCalificado())
+  }
+}
+
+describe "estapa 3" {
+
+    const pepe = new Coordinadores(
+        viajesRealizados = 21,
+        estaMotivado = true,
+        aniosDeExperiencia = 2,
+        rol = guia
+    )
+
+    const packNacional = new Nacionales(
+        duracion = 14, 
+        precioBase = 100000, 
+        coordinador = pepe, 
+        provinciaDestino = "Cordoba"
+    )
+
+    const packInternacional = new Internacionales(
+        duracion = 24, 
+        precioBase = 100000, 
+        coordinador = pepe,
+        paisDestino = "Bahamas",
+        cantidadDeEscalas = 0,
+        esDeInteres = true
+    )
+
+  test "pack nacional premium" {
+    assert.that(packNacional.esPremium())
+  }
+
+  test "pack internacional premium" {
+    assert.that(packInternacional.esPremium())
+  }
+}
+
+describe "etapa 4" {
+
+    const pepe = new Coordinadores(
+        viajesRealizados = 21,
+        estaMotivado = true,
+        aniosDeExperiencia = 2,
+        rol = guia
+    )
+
+
+    const seguroDeVida = new BeneficiosEspeciales(
+        tipo = "Seguro de vida", 
+        costo = 35000, 
+        estaVigente = true
+    )
+
+    const trasladoPrincipal = new BeneficiosEspeciales(
+        tipo = "Traslado privado", 
+        costo = 20000, 
+        estaVigente = true
+    )
+    const salaVIP = new BeneficiosEspeciales(
+        tipo = "sala VIP", 
+        costo = 5000, 
+        estaVigente = true
+    )
+
+    const packProvincial = new Provinciales(
+        duracion = 14, 
+        precioBase = 140000, 
+        coordinador = pepe, 
+        provinciaDestino = "Cordoba",
+        cantidadDeCiudadesAVisitar = 7,
+        beneficios = #{seguroDeVida, trasladoPrincipal, salaVIP},
+        actividades = #{"tirolesa", "remo", "excurciones", "mirador", "peña"}
+    )
+
+  test "valor final de pack provincial premium" {
+    assert.equals(210000, packProvincial.valorFinal())
+  }
+}
